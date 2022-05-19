@@ -64,7 +64,7 @@
             //
             function drop(ev) {
                 ev.preventDefault();
-                var data = ev.dataTransfer.getData("text");
+                let data = ev.dataTransfer.getData("text");
                 ev.target.appendChild(document.getElementById(data));
             }
         </script>
@@ -78,10 +78,7 @@
             The ondrop event calls our drop function when the dragged element is dropped on the drop target
         -->
         <div id="draganddroppable" draggable="true" ondragstart="drag(event)"></div>
-        <div class="dropHere" onDrop="drop(event)" ondragover="allowDrop(event)"></div>
-        <div class="dropHere" onDrop="drop(event)" ondragover="allowDrop(event)"></div>
+        <div class="dropHere" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+        <div class="dropHere" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
     </body>
 </html>
-
-
-
