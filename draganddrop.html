@@ -1,0 +1,87 @@
+<html>
+    <!--
+        Read about the HTML drag and drop API here: https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
+        This code example is based on: https://javascript.plainenglish.io/html-drag-and-drop-api-explained-with-examples-35cda91bce56 
+    -->
+    <head>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            body {
+                font-family: Arial;
+                padding: 0px;
+                margin: 0px;
+                display: flex; 
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                height: 100vh;
+            }
+            .dropHere {
+                width: 300px;
+                height: 80px;
+                border: 2px dashed #ccc;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                background-color: #f2f2f2;
+                color: #ccc;
+                font-size: 20px;
+                font-weight: bold;
+                cursor: pointer;
+                margin: 10px;
+                padding: 10px 10px 0 10px;
+            }   
+            #draganddroppable {
+                width: 280px;
+                height: 60px;
+                display: flex;
+                cursor: grabbing;
+                background: #27ffed;
+                margin-bottom: 10px;
+            }
+        </style>
+
+        <script>
+            //
+            // By default, elements cannot be dropped in other elements. To allow dropping, we call event.preventDefault() in the drop event handler
+            //
+            function allowDrop(ev) {
+                ev.preventDefault();
+            }
+            //
+            // The dataTransfer.setData() method sets the data type and the value of the dragged data - we set the data type to "text" and the value to the id of the element
+            //
+            function drag(ev) {
+                ev.dataTransfer.setData("text", ev.target.id);  
+            }
+            //
+            // Default browser behavior on is to open as a link on the drop, therefore we call preventDefault() to prevent this
+            // getData() returns the value of the dragged data - the dragged data is set to the id of the dragged element
+            // We use this id to find the element and append it to the drop target
+            //
+            function drop(ev) {
+                ev.preventDefault();
+                var data = ev.dataTransfer.getData("text");
+                ev.target.appendChild(document.getElementById(data));
+            }
+        </script>
+
+    </head>
+    <body>
+        <!-- 
+            The draggable attribute defines whether an element is draggable
+            The ondragstart event calls our drag function when the drag event starts
+            The ondragover event calls our allowDrop function when the dragged element is dragged over the drop target
+            The ondrop event calls our drop function when the dragged element is dropped on the drop target
+        -->
+        <div id="draganddroppable" draggable="true" ondragstart="drag(event)"></div>
+        <div class="dropHere" onDrop="drop(event)" ondragover="allowDrop(event)"></div>
+        <div class="dropHere" onDrop="drop(event)" ondragover="allowDrop(event)"></div>
+    </body>
+</html>
+
+
+
